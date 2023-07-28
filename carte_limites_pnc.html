@@ -39,28 +39,28 @@
   <script>
     const basemaps = {
       Scan25: L.tileLayer(
-        "https://wxs.ign.fr/5a3efc2bq1dv1hz6gthcb445/wmts?&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&STYLE=normal&TILEMATRIXSET=PM&FORMAT=image/jpeg&LAYER=GEOGRAPHICALGRIDSYSTEMS.MAPS&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}", 
-        { opacity: 0.5 }, 
+        "https://wxs.ign.fr/5a3efc2bq1dv1hz6gthcb445/wmts?&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&STYLE=normal&TILEMATRIXSET=PM&FORMAT=image/jpeg&LAYER=GEOGRAPHICALGRIDSYSTEMS.MAPS&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}",
+        { opacity: 0.5 },
         { minZoom: 0, maxZoom: 18, attribution: "IGN-F/Geoportail", tileSize: 256 }
       ),
       Plan_ign: L.tileLayer(
-        "https://wxs.ign.fr/cartes/wmts?&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&STYLE=normal&TILEMATRIXSET=PM&FORMAT=image/png&LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}", 
+        "https://wxs.ign.fr/cartes/wmts?&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&STYLE=normal&TILEMATRIXSET=PM&FORMAT=image/png&LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}",
         { minZoom: 0, maxZoom: 18, attribution: "IGN-F/Geoportail", tileSize: 256 }
       ),
       orthoPhoto: L.tileLayer(
-        "https://wxs.ign.fr/ortho/wmts?&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&STYLE=normal&TILEMATRIXSET=PM&FORMAT=image/jpeg&LAYER=ORTHOIMAGERY.ORTHOPHOTOS&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}", 
+        "https://wxs.ign.fr/ortho/wmts?&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&STYLE=normal&TILEMATRIXSET=PM&FORMAT=image/jpeg&LAYER=ORTHOIMAGERY.ORTHOPHOTOS&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}",
         { minZoom: 0, maxZoom: 18, attribution: "IGN-F/Geoportail", tileSize: 256 }
       ),
       OpenStreetMap: L.tileLayer(
-        'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', 
+        'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
         { attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' }
       ),
       OpenTopoMap: L.tileLayer(
-        'http://a.tile.opentopomap.org/{z}/{x}/{y}.png', 
+        'http://a.tile.opentopomap.org/{z}/{x}/{y}.png',
         { attribution: '© <a href="http://osm.org/copyright">OpenStreetMap</a> contributors  | Design : © <a href="http://opentopomap.org/">OpenTopoMap</a> (CC-BY-SA)' }
       )
     };
- 
+
     const overlaymaps = {
       'Limites PNC': L.tileLayer('https://maps.cevennes-parcnational.net/data/tiles/limites_zc_aa_pnc/{z}/{x}/{y}.png', {
         maxZoom: 19
@@ -69,7 +69,7 @@
 
     var map = L.map('mapid', {
       layers: [
-        basemaps.Plan_ign, 
+        basemaps.Plan_ign,
         overlaymaps["Limites PNC"]
       ]
     }).setView([44.23, 3.72], 9.75);
@@ -79,12 +79,6 @@
     function featurePoi(feature, layer) {
       layer.bindPopup("<b>" + feature.properties.name + "</b>" + "<br>" + feature.properties.description);
     };
-
-    $.getJSON('https://geotrek-admin.cevennes-parcnational.net/api/fr/information_desks.geojson', function (geojson) {
-      var outdoor = L.geoJSON(geojson, option);
-      outdoor.addTo(map);
-    });
-
 
     var legend = L.control({ position: 'bottomright' });
     legend.onAdd = function (map) {
